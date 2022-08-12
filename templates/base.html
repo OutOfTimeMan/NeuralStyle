@@ -14,7 +14,7 @@
     {%- block mainmenu -%}
 <ul class="mainmenu">
 {% for p in menu %}
-<li><a href="{{p.url}}">{{p.title}}</a></li>
+<li><a href="{{p.url}}">{{p.name}}</a></li>
 {% endfor %}
 </ul>
     {% endblock mainmenu -%}
@@ -23,7 +23,7 @@
     {% if title -%}
 <h1>{{title}}</h1>
     {% else -%}
-<h1>Статьи.ua</h1>
+<h1>NeuroStyle</h1>
     {% endif -%}
 {% endblock -%}
 </div>
