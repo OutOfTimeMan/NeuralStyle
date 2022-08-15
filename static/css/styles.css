@@ -2,6 +2,18 @@ html{
 font-family: Verdana, sans-serif;
 }
 
+.examples{
+  display: flex;
+  justify-content: space-around;
+  border: 10px;
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
 ul.mainmenu {
     display: flex;
     align-items: flex-start;
