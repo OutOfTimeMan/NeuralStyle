@@ -1,11 +1,27 @@
 .examples{
   display: flex;
-  justify-content: space-around;
-  border: 10px;
+  justify-content: center;
+}
+
+.examples img {
+  width: 30%;
+  height: 30%;
+  border: solid black 4px;
+  margin: 0 10px;
+  border-radius: 7%;
 }
 
 .result{
     display: flex;
     justify-content: center;
-    margin: 10px 0;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.result img {
+  width: 40%;
+  height: 40%;
+  border: solid black 4px;
+  border-radius: 7%;
+  margin-bottom: 20px;
 }
