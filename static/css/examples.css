@@ -1,0 +1,11 @@
+.examples{
+  display: flex;
+  justify-content: space-around;
+  border: 10px;
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
