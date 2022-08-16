@@ -108,7 +108,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         hash = generate_password_hash(form.psw.data)
-        res = dbase.addUser(form.name.data, form.email.data, hash)
+        res = dbase.addUser(form.email.data, hash)
         if res:
             flash("Вы успешно зарегистрированы", "success")
             return redirect(url_for('login'))
