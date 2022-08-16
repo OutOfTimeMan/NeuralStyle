@@ -9,7 +9,8 @@
 {{ form.hidden_tag() }}
 
 {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] -%}
-    <p>{{ field.label() }}
+    <div class='form-item'>
+    <div>{{ field.label() }}</div>
     {% if field.errors %}
         {{ field(class='invalid') }}
     <span class="invalid-feedback" >
@@ -17,6 +18,7 @@
         {{ e }}
         {% endfor %}
     </span>
+    </div>
     {% else %}
         {{ field() }}
     {% endif %}
