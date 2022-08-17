@@ -7,6 +7,8 @@ from flask_login import LoginManager, login_user, login_required, current_user, 
 from UserLogin import UserLogin
 from forms import LoginForm, RegisterForm
 
+
+
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'enkjrgn3e45rt0342hf23kjfn2ekwlfn23wo4t'
@@ -29,6 +31,7 @@ menu = [{'name': 'NeuroStyle', 'url': '/'},
 '''DATABASE'''
 DATABASE = '/tmp/neurostyle.db'
 DEBUG = True
+MAX_CONTENT_LENGTH = 4 * 1024 * 1024
 
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'neurostyle.db')))
 
@@ -126,6 +129,31 @@ def about():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/upload', methods=['POST', 'GET'])
+def upload():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and current_user.verifyExt(file.filename):
+            try:
+                img = file.read()
+                res = dbase.updateUserImage(img, current_user.get_id())
+                if not res:
+                    flash("File must be .jpg or .jpeg", "error")
+                    return redirect(url_for('index'))
+                flash('Successful', 'success')
+            except FileNotFoundError as e:
+                flash('File error reading', 'error')
+
+        else:
+            flash('Image not added. Error.', 'error')
+
+    return redirect(url_for('result'))
+
+@app.route('/result')
+def result():
+    return render_template('about.html', title='Result', menu=menu)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

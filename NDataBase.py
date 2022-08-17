@@ -18,8 +18,7 @@ class NDataBase:
                 print('Пользователь с таким email уже существует')
                 return False
 
-            tm = math.floor(time.time())
-            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL, ?)", (email, hpsw, tm))
+            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL, NULL, NULL)", (email, hpsw))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Ошибка добавления пользователя в БД' + str(e))
@@ -53,3 +52,16 @@ class NDataBase:
             print('Ошибка получения данных из БД' +str(e))
 
         return False
+
+    def updateUserImage(self, image, user_id):
+        if not image:
+            return False
+
+        try:
+            binary = sqlite3.Binary(image)
+            self.__cur.execute(f"UPDATE users SET image = ? WHERE id = ?", (binary, user_id))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("Ошибка обновления аватара в БД: " + str(e))
+            return False
+        return True

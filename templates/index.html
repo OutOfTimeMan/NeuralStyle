@@ -2,5 +2,24 @@
 
 {% block content %}
 {{ super () }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<form class="image-form" action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
+    <div class="image-display"></div>
+    <input class="image-input" type="file" name="file">
+    <input type="submit" value="Upload">
+</form>
+
+<select required>
+
+</select>
+
+<div class="drop-zone">
+    <span class="drop-zone__prompt">Drop file here or click to upload</span>
+    <input type="file" name="myFile" class="drop-zone__input">
+  </div>
+
+<!--  <script src="./static/js/drag&drop.js"></script>-->
 <a href="{{url_for('logout')}}">LOG OUT</a>
 {% endblock %}
