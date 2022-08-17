@@ -13,7 +13,8 @@ app.config['SECRET_KEY'] = 'enkjrgn3e45rt0342hf23kjfn2ekwlfn23wo4t'
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-
+login_manager.login_message = 'Please log in to access the editor'
+login_manager.login_message_category = 'error1'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -79,7 +80,7 @@ def index():
 
 @app.route('/examples')
 def examples():
-    return render_template('examples.html', menu=menu)
+    return render_template('examples.html', title='Examples', menu=menu)
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -114,12 +115,12 @@ def register():
             return redirect(url_for('login'))
         else:
             flash("Ошибка при добавлении в БД", "error")
-    return render_template("register.html", menu=menu, title="Регистрация", form=form)
+    return render_template("register.html", menu=menu, title="Registration", form=form)
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html', menu=menu)
+    return render_template('about.html', title='About', menu=menu)
 
 @app.route('/logout')
 def logout():

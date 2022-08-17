@@ -13,4 +13,4 @@ class RegisterForm(FlaskForm):
     email = StringField('Email: ', validators=[Email("Некорректный email")])
     psw = PasswordField('Password:', validators=[DataRequired(), Length(min=4, max=100, message='Пароль должен быть от 4 от 100 символов')])
     psw2 = PasswordField('Repeat password: ', validators=[DataRequired(), EqualTo('psw', message='Пароли не совпадают')])
-    submit = SubmitField('Sign up')
+    submit = SubmitField('Register')

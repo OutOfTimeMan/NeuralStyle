@@ -1,5 +1,5 @@
 html{
-font-family: Verdana, sans-serif;
+font-family: Roboto, sans-serif;
 }
 
 ul.mainmenu {
@@ -113,51 +113,31 @@ canvas {
   color: #fff;
   position: relative;
   z-index: 1;
+  margin: 20px;
   background: rgb(0, 0, 1, 0.5);
   border-radius: 20px;
-  max-width: 360px;
+  width: 40%;
   margin: 0 auto 100px;
-  padding: 100px;
   text-align: center;
-
-
-}
-
-
-.form-item{
-  margin-bottom: 10px;
+  padding: 30px 0;
 }
 
 
 
-.form-contact label{ 
-
-}
-
-#email{
+#email,#psw,#psw2{
   font-family: "Roboto", sans-serif;
   outline: 0;
   background-color: None;
-  width: 100%;
+  width: 60%;
   border: 0;
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+  border-radius: 20px;
+  color: (0, 255, 0);
 }
 
-#psw{
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background-color: None;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-
-}
 
 #remember{
   width: 15px;
@@ -166,7 +146,6 @@ canvas {
 }
 
 #submit{
-  height: 40px;
   background: None;
   color: #fff;
   padding: 10px;
@@ -174,32 +153,55 @@ canvas {
   width: 150px;
   align: center;
   border-radius: 20px;
-  display: block;
   margin: 0 auto 10px;
+  font-size: 20;
 
 }
-
 
 #submit:hover{
   background-color: #9E9B9B;
 }
 
 #register{
+  padding: 10px 0;
+  display: inline-block;
   color: #fff;
-  padding: 10px;
   border: 1px solid white;
-  width: 150px;
+  width: 148px;
   align: center;
   border-radius: 20px;
-  display: block;
   margin: 0 auto;
+  font-size: 20;
 }
 
 #register:hover{
   background: #9E9B9B;
 }
 
+hr{
+    display: inline-block;
+    width: 30px;
+}
+
+#or{
+    display: inline-block;
+    transform: translate(0, -3px);
+}
+
+.flash.error1{
+	border: 1px solid rgb(217, 199, 35);
+	background: rgb(177, 179, 177, 0.5);
+	text-align: center;
+	border-radius: 20px;
+	font-size: 15px;
+	margin-bottom: 10px;
+	color: #fff;
+	width: 80%;
+	margin: 0 auto 10px;
+}
+
 a:visited{
   color: #fff;
 }
+
 
