@@ -59,7 +59,8 @@ class NDataBase:
 
         try:
             binary = sqlite3.Binary(image)
-            self.__cur.execute(f"UPDATE users SET image = ? WHERE id = ?", (binary, user_id))
+            tm = math.floor(time.time())
+            self.__cur.execute(f"UPDATE users SET image = ?, time = ? WHERE id = ?", (binary, tm, user_id))
             self.__db.commit()
         except sqlite3.Error as e:
             print("Ошибка обновления аватара в БД: " + str(e))

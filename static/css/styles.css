@@ -8,7 +8,7 @@ ul.mainmenu {
     display: flex;
     align-items: flex-start;
     list-style: none;
-    background: #20323b;
+    background: #2c3e50;
     height: 60px;
     margin: 0;
     padding: 0;
@@ -23,9 +23,10 @@ ul.mainmenu li {
 ul.mainmenu li a {
     color: #ffffff;
     text-decoration: none;
+    transition: .25s all ease;
 }
 ul.mainmenu li a:hover {
-    color: #FDA83D;
+    color: #f39c12;
 }
 
 .main-container{
@@ -62,7 +63,7 @@ canvas {
 
 #particles-js {
   position: fixed;
-  z-index: -1;
+  z-index: -2;
   width: 100%;
   height: 100%;
   background-color: #bcc0c2;
@@ -253,6 +254,14 @@ a:visited{
   text-align: center;
 }
 
+.image-display {
+    background: no-repeat center;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .style-image-display{
     background: no-repeat url('../styles_image/carpet.jpg') ;
     background-size: cover;
@@ -271,4 +280,13 @@ a:visited{
   display: flex;
   justify-content: center;
 }
+
+.image-hint {
+    display: inline-block;
+    width: 150px;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}
+
 
