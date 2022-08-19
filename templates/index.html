@@ -5,21 +5,31 @@
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-<form class="image-form" action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
+<form class="image-form" action="{{url_for('render')}}" method="POST" enctype="multipart/form-data">
+    <div class="main-neuro-container">
+    <div>
     <div class="image-display"></div>
     <input class="image-input" type="file" name="file">
-    <input type="submit" value="Upload">
+    </div>
+    <div>
+    <div class="style-image-display"></div>
+    <select name="stylish" >
+        <option value="1">
+            Carpet
+        </option>
+        <option value="2">
+            Vibe-lines
+        </option>
+    </select>
+    </div>
+    </div>
+    <div class="submit"><input type="submit" value="Render"></div>
+
 </form>
 
-<select required>
 
-</select>
-
-<div class="drop-zone">
-    <span class="drop-zone__prompt">Drop file here or click to upload</span>
-    <input type="file" name="myFile" class="drop-zone__input">
-  </div>
-
-<!--  <script src="./static/js/drag&drop.js"></script>-->
+<<!--  <script src="./static/js/drag&drop.js"></script>-->>
 <a href="{{url_for('logout')}}">LOG OUT</a>
+
+<script src="./static/js/select-image.js"></script>
 {% endblock %}

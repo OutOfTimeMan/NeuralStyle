@@ -253,8 +253,22 @@ a:visited{
   text-align: center;
 }
 
-.image-display {
-    width: 100px;
-    height: 100px;
-    border: 1px solid white;
+.style-image-display{
+    background: no-repeat url('../styles_image/carpet.jpg') ;
+    background-size: cover;
 }
+
+.style-image-display, .image-display{
+  width: 400px;
+  height: 400px;
+  border: solid white 4px;
+  margin: 0 10px;
+  border-radius: 7%;
+}
+
+
+.main-neuro-container{
+  display: flex;
+  justify-content: center;
+}
+

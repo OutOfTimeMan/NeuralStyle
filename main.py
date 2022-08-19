@@ -130,14 +130,16 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/upload', methods=['POST', 'GET'])
-def upload():
+@app.route('/render', methods=['POST', 'GET'])
+def render():
     if request.method == 'POST':
         file = request.files['file']
+        stl = request.form.get('stylish')
         if file and current_user.verifyExt(file.filename):
             try:
                 img = file.read()
                 res = dbase.updateUserImage(img, current_user.get_id())
+                dbase.updateUserStyleImageId(stl, current_user.get_id())
                 if not res:
                     flash("File must be .jpg or .jpeg", "error")
                     return redirect(url_for('index'))

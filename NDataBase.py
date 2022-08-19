@@ -18,7 +18,7 @@ class NDataBase:
                 print('Пользователь с таким email уже существует')
                 return False
 
-            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL, NULL, NULL)", (email, hpsw))
+            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL, ?, NULL)", (email, hpsw, 1))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Ошибка добавления пользователя в БД' + str(e))
@@ -65,3 +65,16 @@ class NDataBase:
             print("Ошибка обновления аватара в БД: " + str(e))
             return False
         return True
+
+    def updateUserStyleImageId(self, id, user_id):
+        if not id:
+            return False
+
+        try:
+            self.__cur.execute(f'UPDATE users SET styleID = ? WHERE id = ?', (id, user_id))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("Ошибка обновления styleID в БД: " + str(e))
+            return False
+        return True
+

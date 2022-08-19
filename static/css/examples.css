@@ -6,7 +6,7 @@
 .examples img {
   width: 30%;
   height: 30%;
-  border: solid black 4px;
+  border: solid white 4px;
   margin: 0 10px;
   border-radius: 7%;
 }
@@ -21,7 +21,8 @@
 .result img {
   width: 40%;
   height: 40%;
-  border: solid black 4px;
+  border: solid white 4px;
   border-radius: 7%;
   margin-bottom: 20px;
 }
+
