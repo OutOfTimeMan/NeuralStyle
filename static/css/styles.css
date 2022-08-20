@@ -289,4 +289,11 @@ a:visited{
     color: white;
 }
 
+.error{
+    background: red;
+    color: white;
+}
 
+#image_origin{
+ display: block;
+}

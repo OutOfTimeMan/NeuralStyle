@@ -5,18 +5,19 @@ from NDataBase import NDataBase
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from UserLogin import UserLogin
-from forms import LoginForm, RegisterForm
-
-
+from forms import LoginForm, RegisterForm, UploadForm
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'enkjrgn3e45rt0342hf23kjfn2ekwlfn23wo4t'
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lcah5IhAAAAAFC41-HyMhWMZvU4AdytE75LaqlW'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lcah5IhAAAAAITJNj5FWcZWBbL2H8xMFoRiBYK2'
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = 'Please log in to access the editor'
 login_manager.login_message_category = 'error1'
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -75,12 +76,6 @@ def before_request():
 '''ROUTES'''
 
 
-@app.route('/')
-@login_required
-def index():
-    return render_template('index.html', menu=menu)
-
-
 @app.route('/examples')
 def examples():
     return render_template('examples.html', title='Examples', menu=menu)
@@ -104,9 +99,6 @@ def login():
     return render_template('login.html', menu=menu, form=form)
 
 
-
-
-
 @app.route("/register", methods=["POST", "GET"])
 def register():
     form = RegisterForm()
@@ -125,32 +117,26 @@ def register():
 def about():
     return render_template('about.html', title='About', menu=menu)
 
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/render', methods=['POST', 'GET'])
-def render():
-    if request.method == 'POST':
-        file = request.files['file']
-        stl = request.form.get('stylish')
-        if file and current_user.verifyExt(file.filename):
-            try:
-                img = file.read()
-                res = dbase.updateUserImage(img, current_user.get_id())
-                dbase.updateUserStyleImageId(stl, current_user.get_id())
-                if not res:
-                    flash("File must be .jpg or .jpeg", "error")
-                    return redirect(url_for('index'))
-                flash('Successful', 'success')
-            except FileNotFoundError as e:
-                flash('File error reading', 'error')
 
-        else:
-            flash('Image not added. Error.', 'error')
+@app.route('/', methods=['POST', 'GET'])
+@login_required
+def index():
+    form = UploadForm()
+    if form.validate_on_submit():
+        if form.image_origin.data:
+            img = form.image_origin.data.read()
+            stl = form.select.data
+            dbase.updateUserImage(img, current_user.get_id())
+            dbase.updateUserStyleImageId(stl, current_user.get_id())
+            return redirect(url_for('result'))
+    return render_template('index.html', menu=menu, form=form)
 
-    return redirect(url_for('result'))
 
 @app.route('/result')
 def result():

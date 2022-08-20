@@ -6,33 +6,30 @@
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-<form class="image-form" action="{{url_for('render')}}" method="POST" enctype="multipart/form-data">
+
+<form class="image-form" action="" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {% for error in form.image_origin.errors %}
+        <span class="error"> {{ error }}</span>
+    {% endfor %}
+
     <div class="main-neuro-container">
     <div>
     <div class="image-display">
         <span class="image-hint">Please upload your image</span>
     </div>
-    <input class="image-input" type="file" name="file">
+        {{ form.image_origin }}
     </div>
     <div>
     <div class="style-image-display"></div>
         <div class="select">
-    <select name="stylish">
-        <option value="1">
-            Carpet
-        </option>
-        <option value="2">
-            Vibe-lines
-        </option>
-    </select>
+    {{ form.select }}
     </div>
     </div>
     </div>
-    <div class="submit"><input type="submit" value="Render"></div>
-
+    <div class="submit">{{ form.submit() }}</div>
+    {{ form.recaptcha() }}
 </form>
-
-
 
 <a href="{{url_for('logout')}}">LOG OUT</a>
 <script src="./static/js/image-display.js"></script>
