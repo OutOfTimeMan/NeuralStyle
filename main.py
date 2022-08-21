@@ -12,6 +12,8 @@ app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'enkjrgn3e45rt0342hf23kjfn2ekwlfn23wo4t'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lcah5IhAAAAAFC41-HyMhWMZvU4AdytE75LaqlW'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lcah5IhAAAAAITJNj5FWcZWBbL2H8xMFoRiBYK2'
+app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark'}
+
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'

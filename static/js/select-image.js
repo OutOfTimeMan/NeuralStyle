@@ -6,11 +6,11 @@ select.addEventListener('change', (e) => {
   console.log(image)
   switch (e.target.value){
   case '1':
-    image.style.backgroundImage = "url('/static/styles_image/carpet.jpg')"
+    image.style.backgroundImage = "url('/static/styles_image/1.jpg')"
     console.log('case 1')
     break;
   case '2':
-    image.style.backgroundImage = "url('/static/styles_image/vibe-lines.jpg')"
+    image.style.backgroundImage = "url('/static/styles_image/2.jpg')"
     console.log('case 2')
     break;
   };
