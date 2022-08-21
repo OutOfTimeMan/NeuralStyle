@@ -20,6 +20,9 @@ class UserLogin():
     def get_id(self):
         return str(self.__user['id'])
 
+    def getStyleID(self):
+        return self.__user['styleID'] if self.__user else 'User not found'
+
     def verifyExt(self, filename):
         ext = filename.split('.', 1)[1]
         if ext.lower() in ('jpg', 'jpeg'):
