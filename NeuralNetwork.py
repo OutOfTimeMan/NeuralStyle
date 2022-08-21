@@ -8,10 +8,6 @@ from tensorflow import keras
 from PIL import Image
 import time
 
-img = Image.open('karina.jpg')
-img_style = Image.open('diamonds.jpg')
-
-
 def test_time(func):
     def wrapper(*args, **kwargs):
         st = time.time()
@@ -121,7 +117,7 @@ def style(img1, img2):
         loss = style_score + content_score
         return loss, style_score, content_score
 
-    num_iterations = 70
+    num_iterations = 1
     content_weight = 1e3
     style_weight = 1e-2
 
@@ -169,9 +165,3 @@ def style(img1, img2):
             if (i * 100 / num_iterations) % 10 == 0:
                 print(f'Progress: {int(i * 100 / num_iterations)}%')
     return best_img
-
-
-fig = plt.figure()
-ax = fig.subplots()
-ax.imshow(style(img, img_style))
-plt.show()

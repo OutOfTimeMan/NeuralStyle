@@ -6,3 +6,8 @@ image BLOB DEFAULT NULL,
 styleID integer DEFAULT 1,
 time integer DEFAULT NULL
 );
+
+CREATE TABLE IF NOT EXISTS styles (
+id integer PRIMARY KEY AUTOINCREMENT,
+styleImage BLOB DEFAULT NULL
+);

@@ -28,3 +28,6 @@ class UserLogin():
         if ext.lower() in ('jpg', 'jpeg'):
             return True
         return False
+
+    def getImage(self):
+        return self.__user['image']

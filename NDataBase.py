@@ -35,7 +35,7 @@ class NDataBase:
 
             return res
         except sqlite3.Error as e:
-            print('Ошибка получения данных из БД' +str(e))
+            print('Ошибка получения данных из БД' + str(e))
 
         return False
 
@@ -49,7 +49,7 @@ class NDataBase:
 
             return res
         except sqlite3.Error as e:
-            print('Ошибка получения данных из БД' +str(e))
+            print('Ошибка получения данных из БД' + str(e))
 
         return False
 
@@ -79,3 +79,14 @@ class NDataBase:
             return False
         return True
 
+    def getStyleImageByID(self, id):
+        print(id)
+        try:
+            self.__cur.execute(f"SELECT styleImage FROM styles WHERE id = {id} LIMIT 1")
+            res = self.__cur.fetchone()
+            if not res:
+                print('Style is not found')
+            return res
+        except sqlite3.Error as e:
+            print("Get styleImage error " + str(e))
+        return False

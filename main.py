@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from UserLogin import UserLogin
 from forms import LoginForm, RegisterForm, UploadForm
+from NeuralNetwork import *
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -141,9 +142,21 @@ def index():
 
 
 @app.route('/result')
+@login_required
 def result():
-    return render_template('about.html', title='Result', menu=menu)
 
+    return render_template('result.html', title='Result', menu=menu)
+
+@app.route('/resultImage')
+@login_required
+def resultImage():
+    imgNeuro = current_user.getImage()
+    imgStyle = dbase.getStyleImageByID(current_user.getStyleID())['styleImage']
+    imgRes = style(imgNeuro, imgStyle)
+
+    h = make_response(imgRes)
+    h.headers['ContentType'] = 'image/jpg'
+    return h
 
 if __name__ == '__main__':
     app.run(debug=True)
