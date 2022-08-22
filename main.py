@@ -153,10 +153,11 @@ def resultImage():
     imgNeuro = current_user.getImage()
     imgStyle = dbase.getStyleImageByID(current_user.getStyleID())['styleImage']
     imgRes = style(imgNeuro, imgStyle)
-
     h = make_response(imgRes)
     h.headers['ContentType'] = 'image/jpg'
+
     return h
 
 if __name__ == '__main__':
     app.run(debug=True)
+

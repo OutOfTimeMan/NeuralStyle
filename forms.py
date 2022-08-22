@@ -20,6 +20,6 @@ class RegisterForm(FlaskForm):
 
 class UploadForm(FlaskForm):
     image_origin = FileField('image', validators=[FileRequired('File field should not be empty'), FileAllowed(['jpg', 'png'], 'Only images are allowed')])
-    select = SelectField(u'Style', choices=[(1, 'Carpet'), (2, 'Vibe-lines')])
+    select = SelectField(u'Style', choices=[(1, 'Carpet'), (2, 'Vibe-lines'), (3, 'Diamonds')])
     submit = SubmitField('Render')
     recaptcha = RecaptchaField()

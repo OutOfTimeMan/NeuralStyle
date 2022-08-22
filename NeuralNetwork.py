@@ -5,8 +5,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow import keras
-from PIL import Image
+import PIL.Image as Image
 import time
+import io
+import base64
+
+def to_img(base_file):
+    return Image.open(io.BytesIO(base_file))
+
+def to_bytes(base_file):
+    base_file = Image.fromarray(base_file)
+    b = io.BytesIO()
+    base_file.save(b, 'jpeg')
+    result = b.getvalue()
+    return result
+
 
 def test_time(func):
     def wrapper(*args, **kwargs):
@@ -21,6 +34,9 @@ def test_time(func):
 
 @test_time
 def style(img1, img2):
+    img1 = to_img(img1)
+    img2 = to_img(img2)
+
     if img1.size != img2.size:
         img2 = img2.resize(img1.size)
 
@@ -117,7 +133,7 @@ def style(img1, img2):
         loss = style_score + content_score
         return loss, style_score, content_score
 
-    num_iterations = 1
+    num_iterations = 100
     content_weight = 1e3
     style_weight = 1e-2
 
@@ -164,4 +180,4 @@ def style(img1, img2):
             imgs.append(plot_img)
             if (i * 100 / num_iterations) % 10 == 0:
                 print(f'Progress: {int(i * 100 / num_iterations)}%')
-    return best_img
+    return to_bytes(best_img)
