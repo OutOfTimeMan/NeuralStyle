@@ -158,6 +158,15 @@ def resultImage():
 
     return h
 
+@app.route('/getLoadingImage')
+@login_required
+def getLoadingImage():
+    h = make_response(current_user.getImage())
+    h.headers['ContentType'] = 'image/jpg'
+
+    return h
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
