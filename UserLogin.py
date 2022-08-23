@@ -31,3 +31,9 @@ class UserLogin():
 
     def getImage(self):
         return self.__user['image']
+
+    def getMailConfirmedInfo(self):
+        return self.__user['confirmed_mail']
+
+    def getEmail(self):
+        return self.__user['email']

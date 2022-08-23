@@ -7,6 +7,10 @@
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
 
+{% if not current_user.getMailConfirmedInfo() %}
+    <div class="annoying-message">please <a href="{{url_for('confirm')}}")>confirm</a> your email</div>
+{% endif %}
+
 <form class="image-form" action="" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {% for error in form.image_origin.errors %}
@@ -30,7 +34,6 @@
     <div class="submit">{{ form.submit() }}</div>
     {{ form.recaptcha() }}
 </form>
-
 <a href="{{url_for('logout')}}">LOG OUT</a>
 <script src="./static/js/image-display.js"></script>
 <script src="./static/js/select-image.js"></script>

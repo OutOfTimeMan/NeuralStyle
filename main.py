@@ -7,6 +7,8 @@ from flask_login import LoginManager, login_user, login_required, current_user, 
 from UserLogin import UserLogin
 from forms import LoginForm, RegisterForm, UploadForm
 from NeuralNetwork import *
+from flask_mail import Mail, Message
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -15,6 +17,9 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lcah5IhAAAAAFC41-HyMhWMZvU4AdytE75LaqlW'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lcah5IhAAAAAITJNj5FWcZWBbL2H8xMFoRiBYK2'
 app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark'}
 
+menu = [{'name': 'NeuroStyle', 'url': '/'},
+        {'name': 'Examples', 'url': '/examples'},
+        {'name': 'About', 'url': '/about'}]
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -27,10 +32,6 @@ def load_user(user_id):
     print('load_user')
     return UserLogin().fromDB(user_id, dbase)
 
-
-menu = [{'name': 'NeuroStyle', 'url': '/'},
-        {'name': 'Examples', 'url': '/examples'},
-        {'name': 'About', 'url': '/about'}]
 
 '''DATABASE'''
 DATABASE = '/tmp/neurostyle.db'
@@ -76,12 +77,38 @@ def before_request():
     dbase = NDataBase(db)
 
 
+'''MAIL'''
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = '6fhec6cz@gmail.com'
+app.config['MAIL_PASSWORD'] = 'jsnpbdxevvpdwbot'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+s = URLSafeTimedSerializer('enkjrgn3e45rt0342hf23kjfn2ekwlfn23wo4t')
+
 '''ROUTES'''
 
 
 @app.route('/examples')
 def examples():
     return render_template('examples.html', title='Examples', menu=menu)
+
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        hash = generate_password_hash(form.psw.data)
+        res = dbase.addUser(form.email.data, hash)
+        if res:
+            flash("Вы успешно зарегистрированы", "success")
+            return redirect(url_for('login'))
+        else:
+            flash("Ошибка при добавлении в БД", "error")
+    return render_template("register.html", menu=menu, title="Registration", form=form)
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -102,19 +129,27 @@ def login():
     return render_template('login.html', menu=menu, form=form)
 
 
-@app.route("/register", methods=["POST", "GET"])
-def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        hash = generate_password_hash(form.psw.data)
-        res = dbase.addUser(form.email.data, hash)
-        if res:
-            flash("Вы успешно зарегистрированы", "success")
-            return redirect(url_for('login'))
-        else:
-            flash("Ошибка при добавлении в БД", "error")
-    return render_template("register.html", menu=menu, title="Registration", form=form)
+@app.route('/confirm', methods=['GET', 'POST'])
+@login_required
+def confirm():
+    if request.method == 'POST':
+        email = current_user.getEmail()
+        token = s.dumps(email, salt='email-confirm')
+        msg = Message('Confirm Email', sender='6fhec6cz@gmail.com', recipients=[email])
+        link = url_for('confirm_email', token=token, _external=True)
+        msg.body = 'Your link is {}'.format(link)
+        mail.send(msg)
+    return render_template('confirm.html', menu=menu, title='Email confirmation')
 
+
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=3600)
+        dbase.updateUserConfirmState(current_user.get_id())
+    except SignatureExpired:
+        return '<h1>The token has expired</h1>'
+    return redirect(url_for('index'))
 
 @app.route('/about')
 def about():
@@ -144,8 +179,8 @@ def index():
 @app.route('/result')
 @login_required
 def result():
-
     return render_template('result.html', title='Result', menu=menu)
+
 
 @app.route('/resultImage')
 @login_required
@@ -158,6 +193,7 @@ def resultImage():
 
     return h
 
+
 @app.route('/getLoadingImage')
 @login_required
 def getLoadingImage():
@@ -169,4 +205,3 @@ def getLoadingImage():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

@@ -4,6 +4,7 @@ email text NOT NULL,
 psw text NOT NULL,
 image BLOB DEFAULT NULL,
 styleID integer DEFAULT 1,
+confirmed_mail BIT DEFAULT 0,
 time integer DEFAULT NULL
 );
 

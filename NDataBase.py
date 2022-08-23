@@ -18,7 +18,7 @@ class NDataBase:
                 print('Пользователь с таким email уже существует')
                 return False
 
-            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL, ?, NULL)", (email, hpsw, 1))
+            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL, ?,  ?, NULL)", (email, hpsw, 1, 0))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Ошибка добавления пользователя в БД' + str(e))
@@ -90,3 +90,15 @@ class NDataBase:
         except sqlite3.Error as e:
             print("Get styleImage error " + str(e))
         return False
+
+    def updateUserConfirmState(self, user_id):
+        if not id:
+            return False
+
+        try:
+            self.__cur.execute(f'UPDATE users SET confirmed_mail = ? WHERE id = ?', (1, user_id))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("Ошибка обновления" + str(e))
+            return False
+        return True
