@@ -1,9 +1,6 @@
 import sqlite3
 import time
 import math
-import re
-from flask import url_for
-
 
 class NDataBase:
     def __init__(self, db):
@@ -66,6 +63,7 @@ class NDataBase:
             print("Ошибка обновления аватара в БД: " + str(e))
             return False
         return True
+
 
     def updateUserStyleImageId(self, id, user_id):
         if not id:

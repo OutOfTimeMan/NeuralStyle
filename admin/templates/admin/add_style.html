@@ -1,0 +1,13 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+{{ super() }}
+<form class="addStyle" action="" method="POST" enctype="multipart/form-data">
+{{ form.hidden_tag() }}
+<div class="admin-input">{{ form.admin_image }}</div>
+<div class="admin-input">
+    <p>id of picture:</p>
+    {{ form.admin_image_id }}</div>
+<div class="admin-input">{{ form.admin_submit }}</div>
+</form>
+{% endblock %}

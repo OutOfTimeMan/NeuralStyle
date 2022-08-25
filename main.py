@@ -9,6 +9,7 @@ from forms import LoginForm, RegisterForm, UploadForm
 from NeuralNetwork import *
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from admin.admin import admin
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -16,6 +17,9 @@ app.config['SECRET_KEY'] = 'enkjrgn3e45rt0342hf23kjfn2ekwlfn23wo4t'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lcah5IhAAAAAFC41-HyMhWMZvU4AdytE75LaqlW'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lcah5IhAAAAAITJNj5FWcZWBbL2H8xMFoRiBYK2'
 app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark'}
+
+app.register_blueprint(admin, url_prefix='/admin')
+
 
 menu = [{'name': 'NeuroStyle', 'url': '/'},
         {'name': 'Examples', 'url': '/examples'},

@@ -23,3 +23,9 @@ class UploadForm(FlaskForm):
     select = SelectField(u'Style', choices=[(1, 'Carpet'), (2, 'Vibe-lines'), (3, 'Diamonds')])
     submit = SubmitField('Render')
     recaptcha = RecaptchaField()
+
+
+class AdminUploadForm(FlaskForm):
+    admin_image = FileField('image', validators=[FileRequired('File field should not be empty'), FileAllowed(['jpg', 'png'], 'Only images are allowed')])
+    admin_image_id = StringField('id of picture')
+    admin_submit = SubmitField('Upload')

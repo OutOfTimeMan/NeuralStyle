@@ -31,8 +31,8 @@
     </div>
     </div>
     </div>
-    <div class="submit">{{ form.submit() }}</div>
     {{ form.recaptcha() }}
+    <div class="submit">{{ form.submit() }}</div>
 </form>
 <a href="{{url_for('logout')}}">LOG OUT</a>
 <script src="./static/js/image-display.js"></script>
