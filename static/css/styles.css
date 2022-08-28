@@ -5,6 +5,7 @@ font-family: Roboto, sans-serif;
 ul.mainmenu {
     position: sticky;
     top: 0;
+    z-axis: 999;
     display: flex;
     align-items: flex-start;
     list-style: none;
@@ -157,6 +158,11 @@ canvas {
   font-size: 20;
 }
 
+.submit-index{
+text-align:center;
+}
+
+
 #submit:hover{
   background-color: #9E9B9B;
   cursor: pointer;
@@ -279,8 +285,8 @@ a:visited{
 }
 
 .style-image-display, .image-display{
-  width: 400px;
-  height: 400px;
+  width: 522px;
+  height: 522px;
   border: solid white 4px;
   margin: 0 10px;
   border-radius: 7%;
@@ -301,37 +307,36 @@ a:visited{
 }
 
 
-
-
 #image_origin{
- display: block;
+ position: relative;
+ left: 34%;
+ margin-top: 10px;
+ width: 20em;
+ height: 3em;
+ name: None;
 }
 
-.spinner-container {
-  width: 100%;
-  height: 100%;
-  text-align: center;
+input[type='file'] {
+  color: transparent;
+}
+
+#result-container {
+
 }
 
 .loading-image {
-    width: 60%;
-    height: 60%;
-    filter: blur(7px);
+
+
 }
 
-
 .result-image {
-    width: 60%;
-    height: 60%;
+
+
 }
 
 .spinner {
-  position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
-  margin: 0;
+  z-index: 0;
+  margin: 0 auto;
   border: 4px solid #dbf2ff;
   width: 32px;
   height: 32px;
@@ -342,17 +347,14 @@ a:visited{
   animation-name: spin;
   animation-duration: 900ms;
   animation-iteration-count: infinite;
-  /*animation-timing-function: linear; /*linear spin */
   animation-timing-function: cubic-bezier(0.53, 0.21, 0.29, 0.67);
 }
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
-  /*50% {width:24px;height:24px} /*shrinking effect*/
   100% { -webkit-transform: rotate(360deg); }
 }
 @keyframes spin {
   0% { -webkit-transform: rotate(0deg);}
- /*50% {width:24px;height:24px} /*shrinking effect*/
   100% { -webkit-transform: rotate(360deg); }
 }
 
@@ -389,8 +391,21 @@ input::file-selector-button {
 .g-recaptcha {
 transform:scale(0.85);
 transform-origin:0 0;
-   text-align: -webkit-center;
-   text-align: -moz-center;
-   text-align: -o-center;
-   text-align: -ms-center;
+position: relative;
+left: 41%;
+
+
+}
+
+
+
+.logout{
+display: flex;
+align-items: flex-end;
+justify-content: center;
+margin-top: 60px;
+}
+
+.image-block{
+
 }

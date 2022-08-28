@@ -5,11 +5,11 @@
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-<div class="spinner-container">
-  <img class="loading-image" src="{{ url_for('getLoadingImage') }}">
-  <div class="spinner">
-  </div>
-  <img class="result-image" src="{{ url_for('resultImage') }}">
+
+<div id="result-container">
+  <img class="loading-image" src="{{ url_for('getLoadingImage') }}" />
+  <img class="result-image" src="{{ url_for('resultImage') }}" />
+  <div class="spinner"></div>
 </div>
 
 {% endblock %}

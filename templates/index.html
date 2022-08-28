@@ -18,13 +18,13 @@
     {% endfor %}
 
     <div class="main-neuro-container">
-    <div>
+    <div class="image-block">
     <div class="image-display">
         <span class="image-hint">Please upload your image</span>
     </div>
         {{ form.image_origin }}
     </div>
-    <div>
+    <div class="image-block">
     <div class="style-image-display"></div>
         <div class="select">
     {{ form.select }}
@@ -32,9 +32,9 @@
     </div>
     </div>
     {{ form.recaptcha() }}
-    <div class="submit">{{ form.submit() }}</div>
+    <div class="submit-index">{{ form.submit() }}</div>
 </form>
-<a href="{{url_for('logout')}}">LOG OUT</a>
+<a class='logout' href="{{url_for('logout')}}">LOG OUT</a>
 <script src="./static/js/image-display.js"></script>
 <script src="./static/js/select-image.js"></script>
 {% endblock %}
