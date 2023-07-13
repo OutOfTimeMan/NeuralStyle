@@ -133,7 +133,7 @@ def style(img1, img2):
         loss = style_score + content_score
         return loss, style_score, content_score
 
-    num_iterations = 1
+    num_iterations = 100
     content_weight = 1e3
     style_weight = 1e-2
 
